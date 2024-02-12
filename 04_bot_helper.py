@@ -15,7 +15,7 @@ def input_error(func):
 
 contucts_book = dict()
 
-@input_error
+
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -23,13 +23,18 @@ def parse_input(user_input):
 
 @input_error
 def add_contact(command, *args):
-    contucts_book[args[0]] = args[1] 
-    return ("added")
+    if args[0] in contucts_book:
+        return f"{args[0]} already in list"
+    else:
+        contucts_book[args[0]] = args[1] 
+        return ("added")
 
 @input_error
 def change_contact(command, *args):
-    contucts_book[args[0]] = args[1]
-    return ("Contact updated.")
+    if args[0] in contucts_book:
+        contucts_book[args[0]] = args[1]
+        return ("Contact updated.")
+    else: return "No such contuct"
 
 @input_error
 def show_phone(command, *args):
